@@ -12,12 +12,9 @@ export default function Map() {
   return (
     <div className={styles.mapContainer} onClick={() => navigate("form")}>
       <p>
-        <strong>Latitude :</strong>
         {lat}
-        <p>
-          <strong>Longitude :</strong>
-          {lng}
-        </p>
+
+        {lng}
       </p>
       <button onClick={() => setSearchParams({ lat: 20, lng: 59 })}>
         change position
