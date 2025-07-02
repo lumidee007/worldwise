@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Map.module.css";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import useUrlLocation from "../hooks/useUrlLocation";
+
 import {
   MapContainer,
   TileLayer,
@@ -15,7 +17,6 @@ import Button from "./Button";
 
 export default function Map() {
   const [mapPosition, setMapPosition] = useState([40, 0]);
-  const [searchParams] = useSearchParams();
   const { cities } = useCities();
   const {
     isLoading: isLoadingPosition,
@@ -23,8 +24,7 @@ export default function Map() {
     getPosition,
   } = useGeolocation();
 
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const [lat, lng] = useUrlLocation();
 
   useEffect(() => {
     if (lat && lng) {
@@ -67,7 +67,7 @@ export default function Map() {
           </Marker>
         ))}
         <CenterMap position={mapPosition} />
-        <DetectClick />
+        <DetectMapClick />
       </MapContainer>
     </div>
   );
@@ -79,11 +79,12 @@ function CenterMap({ position }) {
   return null;
 }
 
-function DetectClick() {
+function DetectMapClick() {
   const navigate = useNavigate();
   useMapEvents({
     click: (e) => {
-      navigate(`form?lat=${e.latlng.lat}&${e.latlng.lng}`);
+      navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`);
     },
   });
+  return null;
 }
