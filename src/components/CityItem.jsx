@@ -12,7 +12,7 @@ export function formatDate(isoString) {
 }
 
 export default function CityItem({ city }) {
-  const { currentCity } = useCities();
+  const { currentCity, removeCity } = useCities();
   const {
     emoji,
     cityName,
@@ -31,7 +31,15 @@ export default function CityItem({ city }) {
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>({formatDate(date)})</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button
+          className={styles.deleteBtn}
+          onClick={(e) => {
+            e.preventDefault();
+            removeCity(id);
+          }}
+        >
+          &times;
+        </button>
       </Link>
     </li>
   );
