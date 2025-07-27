@@ -1,40 +1,16 @@
 {
   "cities": [
     {
-      "cityName": "Kuje",
-      "country": "Nigeria",
-      "notes": "Visiting a friend.",
-      "date": "2025-07-17T13:23:17.548Z",
-      "emoji": "🇳🇬",
+      "cityName": "Sotouboua",
+      "country": "Togo",
+      "notes": "",
+      "date": "2025-07-27T16:47:31.968Z",
+      "emoji": "🇹🇬",
       "position": {
-        "lat": "8.819938928283147",
-        "lng": "7.239990234375001"
+        "lat": "8.513392027122913",
+        "lng": "1.0547718478010637"
       },
-      "id": 1
-    },
-    {
-      "cityName": "Olorunda",
-      "country": "Nigeria",
-      "notes": "vacation spot for 2025",
-      "date": "2025-07-17T13:30:54.300Z",
-      "emoji": "🇳🇬",
-      "position": {
-        "lat": "7.77996526711783",
-        "lng": "4.5565152168273935"
-      },
-      "id": 2
-    },
-    {
-      "cityName": "Koudou-Bego",
-      "country": "Central African Republic (the)",
-      "notes": "nice",
-      "date": "2025-07-17T13:31:49.704Z",
-      "emoji": "🇨🇫",
-      "position": {
-        "lat": "6.664607562172573",
-        "lng": "19.907226562500004"
-      },
-      "id": 3
+      "id": 4
     }
   ]
 }

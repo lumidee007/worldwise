@@ -1,50 +1,81 @@
-import React, { useContext, createContext, useState, useEffect } from "react";
+import React, { useContext, createContext, useEffect, useReducer } from "react";
 
 const CitiesContext = createContext();
 
+const initialState = {
+  cities: [],
+  isLoading: false,
+  currentCity: {},
+  error: "",
+};
+
+const cityReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "loading":
+      return { ...state, isLoading: true };
+    case "cities_loaded":
+      return { ...state, isLoading: false, cities: action.payload };
+    case "city_loaded":
+      return { ...state, isLoading: false, currentCity: action.payload };
+    case "city_added":
+      return {
+        ...state,
+        isLoading: false,
+        cities: [...state.cities, action.payload],
+        currentCity: action.payload,
+      };
+    case "city_removed":
+      return {
+        ...state,
+        isLoading: false,
+        cities: state.cities.filter((city) => city.id != action.payload),
+        currentCity: {},
+      };
+    case "error":
+      return { ...state, isLoading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 function CitiesProvider({ children }) {
-  const [cities, setCities] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentCity, setCurrentCity] = useState({});
+  const [state, dispatch] = useReducer(cityReducer, initialState);
 
   useEffect(() => {
     const fetchCities = async () => {
+      dispatch({ type: "loading" });
       try {
-        setIsLoading(true);
         const res = await fetch("http://localhost:8000/cities");
         if (!res.ok) {
           throw new Error("fail to load cities");
         }
         const data = await res.json();
-        setCities(data);
+        dispatch({ type: "cities_loaded", payload: data });
       } catch (e) {
-        console.log(e.message);
-      } finally {
-        setIsLoading(false);
+        dispatch({ type: "error", payload: e.message });
       }
     };
     fetchCities();
   }, []);
 
   async function getCity(id) {
+    if (Number(id) == currentCity.id) return;
+    dispatch({ type: "loading" });
     try {
-      setIsLoading(true);
       const res = await fetch(`http://localhost:8000/cities/${id}`);
       if (!res.ok) {
         throw new Error("fail to load cities");
       }
       const data = await res.json();
-      setCurrentCity(data);
+      dispatch({ type: "city_loaded", payload: data });
     } catch (e) {
-      console.log(e.message);
-    } finally {
-      setIsLoading(false);
+      dispatch({ type: "error", payload: e.message });
     }
   }
 
   async function addNewCity(city) {
     try {
-      setIsLoading(true);
+      dispatch({ type: "loading" });
       const res = await fetch("http://localhost:8000/cities/", {
         method: "POST",
         body: JSON.stringify(city),
@@ -52,34 +83,33 @@ function CitiesProvider({ children }) {
           "Content-Type": "application/json",
         },
       });
-      // if (!res.ok) {
-      //   throw new Error("fail to load cities");
-      // }
+
       const data = await res.json();
-      setCities((cities) => [...cities, data]);
-      // setCurrentCity(data);
+
+      dispatch({ type: "city_added", payload: data });
       console.log(data);
     } catch (e) {
       console.log(e.message);
-    } finally {
-      setIsLoading(false);
+      dispatch({ type: "error", payload: e.message });
     }
   }
 
   async function removeCity(id) {
+    dispatch({ type: "loading" });
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       await fetch(`http://localhost:8000/cities/${id}`, {
         method: "DELETE",
       });
 
-      setCities((cities) => cities.filter((city) => city.id !== id));
+      dispatch({ type: "city_removed", payload: id });
     } catch (e) {
       console.log(e.message);
-    } finally {
-      setIsLoading(false);
+      dispatch({ type: "error", payload: e.message });
     }
   }
+
+  const { cities, isLoading, currentCity } = state;
 
   return (
     <CitiesContext.Provider
