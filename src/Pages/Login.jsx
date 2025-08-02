@@ -19,7 +19,6 @@ export default function Login() {
     }
     if (email && password) {
       login(email, password);
-      console.log("Login successful");
     }
   };
 

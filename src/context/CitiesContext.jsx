@@ -51,7 +51,9 @@ function CitiesProvider({ children }) {
     const fetchCities = async () => {
       dispatch({ type: "loading" });
       try {
-        const res = await fetch("http://localhost:8000/cities");
+        const res = await fetch(
+          "https://worldwise-json-server-gaml.onrender.com/cities"
+        );
         if (!res.ok) {
           throw new Error("fail to load cities");
         }
@@ -69,7 +71,9 @@ function CitiesProvider({ children }) {
       if (Number(id) == currentCity.id) return;
       dispatch({ type: "loading" });
       try {
-        const res = await fetch(`http://localhost:8000/cities/${id}`);
+        const res = await fetch(
+          `https://worldwise-json-server-gaml.onrender.com/cities/${id}`
+        );
         if (!res.ok) {
           throw new Error("fail to load cities");
         }
@@ -85,20 +89,21 @@ function CitiesProvider({ children }) {
   async function addNewCity(city) {
     try {
       dispatch({ type: "loading" });
-      const res = await fetch("http://localhost:8000/cities", {
-        method: "POST",
-        body: JSON.stringify(city),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        "https://worldwise-json-server-gaml.onrender.com/cities",
+        {
+          method: "POST",
+          body: JSON.stringify(city),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const data = await res.json();
 
       dispatch({ type: "city_added", payload: data });
-      console.log(data);
     } catch (e) {
-      console.log(e.message);
       dispatch({ type: "error", payload: e.message });
     }
   }
@@ -107,13 +112,15 @@ function CitiesProvider({ children }) {
     dispatch({ type: "loading" });
     try {
       // setIsLoading(true);
-      await fetch(`http://localhost:8000/cities/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://worldwise-json-server-gaml.onrender.com/cities/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       dispatch({ type: "city_removed", payload: id });
     } catch (e) {
-      console.log(e.message);
       dispatch({ type: "error", payload: e.message });
     }
   }

@@ -3,7 +3,6 @@ import styles from "./NotFound.module.css";
 import { Link } from "react-router-dom";
 
 export default function NotFound() {
-  console.log("NotFound component rendered");
   return (
     <div className={styles.notfound}>
       <h1 className={styles.h1}>Sorry, page not found</h1>

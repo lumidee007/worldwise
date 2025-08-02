@@ -43,7 +43,6 @@ function Form() {
         setGeocodingError("");
         const res = await fetch(`${BASE_URL}?latitude=${lat}&longitude=${lng}`);
         const cityData = await res.json();
-        console.log(cityData);
 
         if (!cityData.countryCode) {
           throw new Error(
@@ -55,7 +54,6 @@ function Form() {
         setCountry(cityData.countryName || "");
         setEmoji(countryCodeToFlag(cityData.countryCode));
       } catch (e) {
-        console.log(e.message);
         setGeocodingError(e.message);
       } finally {
         setIsLoadingGeocoding(false);
@@ -92,7 +90,6 @@ function Form() {
       position: { lat, lng },
     };
 
-    console.log(newCity);
     await addNewCity(newCity);
     navigate("/app/cities");
   }
