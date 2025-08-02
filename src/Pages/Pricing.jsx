@@ -21,7 +21,7 @@ export default function Product() {
           </p>
         </div>
         <img
-          src="../../public/img/img-2.jpg"
+          src="/img/img-2.jpg"
           alt="overview of a large city with skyscrapers"
         />
       </section>

@@ -4,7 +4,7 @@ import Styles from "./Logo.module.css";
 export default function Logo() {
   return (
     <Link to="/">
-      <img src="../../public/img/logo.png" className={Styles.logo} />
+      <img src="/img/logo.png" className={Styles.logo} />
     </Link>
   );
 }
