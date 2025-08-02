@@ -17,10 +17,10 @@ const authReducer = (state = initialState, action) => {
 };
 
 const FAKE_USER = {
-  name: "Andrew",
-  email: "andrew@example.com",
+  name: "Femi",
+  email: "femi@example.com",
   password: "qwerty",
-  avatar: "https://i.pravatar.cc/200?u=xx",
+  avatar: "https://i.pravatar.cc/200?u=pl",
 };
 
 function AuthProvider({ children }) {

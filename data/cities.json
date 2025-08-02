@@ -1,16 +1,52 @@
 {
   "cities": [
     {
-      "cityName": "Fraga",
-      "country": "Spain",
+      "cityName": "Gemmano",
+      "country": "Italy",
       "notes": "",
-      "date": "2025-07-27T18:28:53.256Z",
-      "emoji": "🇪🇸",
+      "date": "2025-07-27T20:39:44.146Z",
+      "emoji": "🇮🇹",
       "position": {
-        "lat": "41.42479601571556",
-        "lng": "0.20415113467103563"
+        "lat": "43.89692938443625",
+        "lng": "12.539869603948901"
       },
       "id": 1
+    },
+    {
+      "cityName": "Sardoal",
+      "country": "Portugal",
+      "notes": "hhh",
+      "date": "2025-08-02T19:12:55.954Z",
+      "emoji": "🇵🇹",
+      "position": {
+        "lat": "39.51898351355054",
+        "lng": "-8.129770107225648"
+      },
+      "id": 2
+    },
+    {
+      "cityName": "Ourika",
+      "country": "Morocco",
+      "notes": "",
+      "date": "2025-08-02T19:13:06.238Z",
+      "emoji": "🇲🇦",
+      "position": {
+        "lat": "31.388771327719656",
+        "lng": "-7.822173879597206"
+      },
+      "id": 3
+    },
+    {
+      "cityName": "Helechosa de los Montes",
+      "country": "Spain",
+      "notes": "",
+      "date": "2025-08-02T20:43:41.606Z",
+      "emoji": "🇪🇸",
+      "position": {
+        "lat": "39.282070734968215",
+        "lng": "-4.82299917976796"
+      },
+      "id": 4
     }
   ]
 }

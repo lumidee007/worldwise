@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("andrew@example.com");
+  const [email, setEmail] = useState("femi@example.com");
   const [password, setPassword] = useState("qwerty");
 
   const handleSubmit = (e) => {

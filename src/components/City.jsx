@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useCities } from "../context/CitiesContext";
 import Spinner from "./Spinner";
 import styles from "./City.module.css";
-import styles2 from "./Form.module.css";
+// import styles2 from "./Form.module.css";
 import BackButton from "./BackButton";
 
 function formatDate(isoString) {
@@ -29,7 +29,7 @@ export default function City() {
     function () {
       getCity(id);
     },
-    [id]
+    [id, getCity]
   );
 
   if (isLoading || !currentCity) {

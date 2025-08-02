@@ -1,4 +1,10 @@
-import React, { useContext, createContext, useEffect, useReducer } from "react";
+import React, {
+  useContext,
+  createContext,
+  useEffect,
+  useReducer,
+  useCallback,
+} from "react";
 
 const CitiesContext = createContext();
 
@@ -40,7 +46,7 @@ const cityReducer = (state = initialState, action) => {
 
 function CitiesProvider({ children }) {
   const [state, dispatch] = useReducer(cityReducer, initialState);
-
+  const { cities, isLoading, currentCity } = state;
   useEffect(() => {
     const fetchCities = async () => {
       dispatch({ type: "loading" });
@@ -58,25 +64,28 @@ function CitiesProvider({ children }) {
     fetchCities();
   }, []);
 
-  async function getCity(id) {
-    if (Number(id) == currentCity.id) return;
-    dispatch({ type: "loading" });
-    try {
-      const res = await fetch(`http://localhost:8000/cities/${id}`);
-      if (!res.ok) {
-        throw new Error("fail to load cities");
+  const getCity = useCallback(
+    async function getCity(id) {
+      if (Number(id) == currentCity.id) return;
+      dispatch({ type: "loading" });
+      try {
+        const res = await fetch(`http://localhost:8000/cities/${id}`);
+        if (!res.ok) {
+          throw new Error("fail to load cities");
+        }
+        const data = await res.json();
+        dispatch({ type: "city_loaded", payload: data });
+      } catch (e) {
+        dispatch({ type: "error", payload: e.message });
       }
-      const data = await res.json();
-      dispatch({ type: "city_loaded", payload: data });
-    } catch (e) {
-      dispatch({ type: "error", payload: e.message });
-    }
-  }
+    },
+    [currentCity.id]
+  );
 
   async function addNewCity(city) {
     try {
       dispatch({ type: "loading" });
-      const res = await fetch("http://localhost:8000/cities/", {
+      const res = await fetch("http://localhost:8000/cities", {
         method: "POST",
         body: JSON.stringify(city),
         headers: {
@@ -108,8 +117,6 @@ function CitiesProvider({ children }) {
       dispatch({ type: "error", payload: e.message });
     }
   }
-
-  const { cities, isLoading, currentCity } = state;
 
   return (
     <CitiesContext.Provider
